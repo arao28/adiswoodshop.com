@@ -1,0 +1,61 @@
+/* autoprefixer grid: autoplace */
+
+@import url('https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap');
+
+@font-face {
+	font-family: 'Recoleta Black';
+	src: local('Recoleta Black'), url(./Assets/Fonts/Recoleta/Recoleta-Black.ttf) format('truetype');
+}
+
+$display-font: 'Recoleta Black';
+$body-font: 'Didact Gothic', sans-serif;
+
+$light: #FFFFFF;
+$dark: #000000;
+
+$tan: #F4E0C3;
+$red: #E13D5B;
+$blue: #0081A7;
+$yellow: #FFEC70;
+
+html, body, #root{
+	height: 100vh;
+	width: 100vw;
+	overscroll-behavior: none;
+}
+
+html, body, * {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: $body-font;
+	transition: all ease 0.5s;
+}
+
+@mixin logo-coloring() {
+	&:nth-child(1) { background-color: $red; }
+	&:nth-child(2) { background-color: $yellow; }
+	&:nth-child(3) { background-color: $blue; }
+}
+
+
+/* FADE ANIMATION */
+.fade-appear,
+.fade-enter {
+    opacity: 0;
+    z-index: 1;
+}
+.fade-appear-active,
+.fade-enter.fade-enter-active {
+    opacity: 1;
+    transition: opacity 300ms ease 150ms;
+}
+
+.fade-exit {
+    opacity: 1;
+}
+
+.fade-exit.fade-exit-active {
+    opacity: 0;
+    transition: opacity 150ms ease;
+}

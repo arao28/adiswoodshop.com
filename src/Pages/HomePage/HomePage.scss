@@ -1,0 +1,87 @@
+@import '../../Main.scss';
+
+.home-wrapper {
+	display: flex;
+	flex-direction: column;
+	padding: 6em 10em;
+	gap: 5vh;
+
+	.home-title {
+		width: fit-content;
+		height: fit-content;
+
+		.home-title-logo {
+			position: absolute;
+
+			top: 0; left: 0;
+			margin-top: 7.5em;
+
+			display: flex;
+			align-items: center;
+			justify-content: flex-start;
+
+			height: fit-content; width: fit-content;
+			&:hover { 
+				margin-top: 0vh;
+				.home-title-logo-part { height: 100vh; }
+			}
+
+			.home-title-logo-part {
+				width: calc(7em / 3);
+				height: 7em;
+				transition: all 0.5s ease;
+
+				@include logo-coloring
+				&:nth-child(1) { transition-delay: 0ms; }
+				&:nth-child(2) { transition-delay: 10ms; }
+				&:nth-child(3) { transition-delay: 20ms; }
+			}
+		}
+
+		.home-title-text {
+			font-size: 8em;
+			font-family: $display-font;
+			color: $dark;
+		}
+	}
+
+	.home-projects-wrapper {
+		align-self: center;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 8vh;
+		width: 80vw;
+
+		.home-project {
+			background-color: $light;
+			height: 40vh;
+			position: relative;
+			cursor: pointer;
+
+			&:hover { .home-project-logo { height: 3em !important; }}
+
+			p { 
+				font-family: $display-font;
+				position: absolute;
+				top: -0.6em; left: -0.3em;
+
+				font-size: 3em;
+			}
+
+			.home-project-logo {
+				display: flex; 
+				flex-direction: row;
+
+				position: absolute;
+				top: 0; right: 2em;
+				height: 0em; width: 3em;
+
+				.home-project-logo-part { 
+					width: calc(100% / 3);
+					height: 100%;
+					@include logo-coloring;
+				}
+			}
+		}
+	}
+}
