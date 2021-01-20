@@ -10,7 +10,7 @@
 	.work-info {
 		margin-top: 10vh;
 		width: 100%;
-		height: 45vh;
+		height: 50vh;
 		position: relative;
 
 		.work-title {
@@ -27,7 +27,7 @@
 			width: min-content;
 			
 			display: flex;
-			// gap: 4vh;
+			gap: 4vh;
 	
 			img { 
 				height: 100%; 
@@ -35,8 +35,8 @@
 				background-color: $light;
 			}
 
-			.inactive-image { opacity: 0.5; }
-			.active-image { opacity: 1 !important; }
+			.inactive-image { opacity: 0.3; }
+			.active-image { opacity: 1; }
 		}
 	}
 }

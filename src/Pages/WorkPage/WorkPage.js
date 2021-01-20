@@ -2,14 +2,12 @@ import React from 'react';
 
 import './WorkPage.scss';
 
-import IMG1 from './random/IMG_2501.jpg';
-import IMG2 from './random/A5329F47-B32B-4FBD-972F-5CF8251CB595.JPG'
-
 import Page from '../../Layout/Page/Page';
+import { projects } from '../../Info/Projects/Projects';
+import { withRouter } from 'react-router-dom';
 
-const carouselHeight = 45;
-// const gapWidth = 4;
-const gapWidth = 0;
+const carouselHeight = 50;
+const gapWidth = 4;
 
 class ImageCarousel extends React.Component {
 	constructor(props) {
@@ -17,7 +15,7 @@ class ImageCarousel extends React.Component {
 		this.state = {
 			active: 0,
 			widths: [],
-			margin: 0
+			margin: (gapWidth / 100) * window.innerHeight
 		}
 		this.setActive = this.setActive.bind(this);
 		this.renderImages = this.renderImages.bind(this);
@@ -50,18 +48,17 @@ class ImageCarousel extends React.Component {
 	calculateMargin() {
 		var i;
 		let widths = this.state.widths;
+		let gap = (gapWidth / 100) * (window.innerHeight);
 
 		let totalWidth = 0;
-		for (i = 0; i < this.state.active; i++) {
-			totalWidth -= widths[i] //+ (window.innerHeight * (gapWidth / 100))
-		}
+		for (i = 0; i < this.state.active; i++) { totalWidth -= widths[i] }
 		totalWidth += (window.innerWidth - widths[this.state.active]) / 2
+		totalWidth -= gap * this.state.active;
 
-		const minMargin = 0; const maxMargin = window.innerWidth - (this.state.widths.reduce((t,w) => t = t+w , 0));
-		console.log(totalWidth, maxMargin);
-		const margin = Math.max(Math.min(totalWidth, minMargin), maxMargin);
-		console.log(margin);
-		console.log()
+		const minMargin = gap; const maxMargin = window.innerWidth - (this.state.widths.reduce((t,w) => t = t+w+gap, 0));
+		let margin = totalWidth;
+		margin = Math.min(totalWidth, minMargin);
+		margin = Math.max(margin, maxMargin);
 
 		this.setState({margin});
 	}
@@ -76,13 +73,33 @@ class ImageCarousel extends React.Component {
 }
 
 class WorkPage extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			name: "",
+			images: []
+		}
+	}
+
+	getWork() {
+		let pathName = this.props.match.url;
+		let workNav = pathName.split("/")[2];
+		const workInfo = projects.find((work) => workNav === work.navigation);
+
+		let name = workInfo.name; let images = workInfo.images; 
+		this.setState({ name, images });
+	}
+
+	componentDidUpdate(prevProps) { if (this.props.location !== prevProps.location) { this.getWork() } }
+	componentWillMount() { this.getWork() }
+
 	render() {
 		return (
 			<Page>
 				<div className="work-wrapper">
 					<div className="work-info">
-						<div className="work-title">{this.props.name}</div>
-						<ImageCarousel images={this.props.images}/>
+						<div className="work-title">{this.state.name}</div>
+						<ImageCarousel images={this.state.images}/>
 					</div>
 				</div>
 			</Page>
@@ -90,9 +107,4 @@ class WorkPage extends React.Component {
 	}
 }
 
-WorkPage.defaultProps = {
-	name: "Project",
-	images: [IMG1, IMG2, IMG1, IMG2, IMG1]
-}
-
-export default WorkPage;
+export default withRouter(WorkPage);

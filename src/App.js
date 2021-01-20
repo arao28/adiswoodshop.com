@@ -21,7 +21,7 @@ function App() {
 				<TransitionGroup>
 					<CSSTransition key={location.key} timeout={300} classNames="fade">
 						<Switch location={location}>
-							<Route path="/work"><WorkPage/></Route>
+							<Route path="/work/:work_id"><WorkPage/></Route>
 							<Route path="/" exact><HomePage/></Route>
 						</Switch>
 					</CSSTransition>

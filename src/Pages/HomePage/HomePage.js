@@ -4,16 +4,19 @@ import './HomePage.scss';
 
 import Page from '../../Layout/Page/Page';
 import { projects } from '../../Info/Projects/Projects';
+import { Link } from 'react-router-dom';
 
 class HomePage extends React.Component {
 	renderProjects() {
 		return projects.map((p) => 
-			<div className="home-project">
-				<p>{p.name}</p>
-				<div className="home-project-logo">
-					{[...Array(3)].map(() => <div className="home-project-logo-part"/>)}
+			<Link to={"/work/" + p.navigation}>
+				<div className="home-project">
+					<p>{p.name}</p>
+					<div className="home-project-logo">
+						{[...Array(3)].map(() => <div className="home-project-logo-part"/>)}
+					</div>
 				</div>
-			</div>);
+			</Link>);
 	}
 
 	render() {
